@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 
 
-export const Register = () => {
+export const Signup = () => {
 
   const { store, actions } = useContext(Context);
   const [name, setName] = useState('');
@@ -49,13 +49,13 @@ const handleSubmit = async (e) => {
     return (
         <div className="m-3 p-4">
       <h4 className="text-center mb-4">Register</h4>
-      <form className="m-auto" style={{ maxWidth: '400px' }} noValidate onSubmit={handleSubmit} >
+      <form className="m-auto needs-validation" style={{ maxWidth: '400px' }} noValidate onSubmit={handleSubmit} >
         <div className="mb-3">
-          <label htmlFor="validationCustom01" className="form-label">Name</label>
+          <label htmlFor="validationNameRegister" className="form-label">Name</label>
           <input
             type="text"
             className="form-control"
-            id="validationCustom01"
+            id="validationNameRegister"
             value={name}
             onChange={(e) => setName(e.target.value)} 
             required
@@ -63,11 +63,11 @@ const handleSubmit = async (e) => {
           <div className="valid-feedback">Looks good!</div>
         </div>
         <div className="mb-3">
-          <label htmlFor="validationCustom02" className="form-label">Email</label>
+          <label htmlFor="validationEmailRegister" className="form-label">Email</label>
           <input
-            type="text"
+            type="email"
             className="form-control"
-            id="validationCustom02"
+            id="validationEmailRegister"
             value={email}
             onChange={(e) => setEmail(e.target.value)} 
             required
@@ -75,18 +75,18 @@ const handleSubmit = async (e) => {
           <div className="valid-feedback">Looks good!</div>
         </div>
         <div className="mb-3">
-          <label htmlFor="validationCustom03" className="form-label">Password</label>
+          <label htmlFor="validationPasswordRegister" className="form-label">Password</label>
           <input
             type="password"
             className="form-control"
-            id="validationCustom03"
+            id="validationPasswordRegister"
             value={password}
             onChange={(e) => setPassword(e.target.value)} 
             required
           />
         </div>
         <div className="text-center">
-          <button className="btn btn-primary" type="submit">Submit</button>
+          <button className="btn btn-primary" type="submit">Signup</button>
         </div>
       </form>
     </div>

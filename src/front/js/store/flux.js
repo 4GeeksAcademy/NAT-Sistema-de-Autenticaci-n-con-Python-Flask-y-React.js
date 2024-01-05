@@ -2,24 +2,69 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			
+			
+			user: null,
+			token: localStorage.getItem("token")
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			createUser: async (name, email, password) => {
+				const call = {
+					method: "POST",
+					Headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({
+						"name": name,
+						"email": email,
+						"password": password,
+						"is_active": true 
+					})
+				}
+				try {
+					const result = await fetch("https://sturdy-giggle-q7qp9w9wp4x9fq6p-3001.app.github.dev/api/users", call)
+					console.log("fetch a users",result)
+
+				if (!response.ok) {
+					throw new Error("Failed to create user");
+				}
+				const data = await response.json();
+				if (!data.message) {
+					throw new Error("User creation failed");
+				}
+				return data;
+
+				}catch(error) {
+					console.log("no se puede registrar", error)
+					throw error;
+				}
 			},
+			login: async (email, password) => {
+				console.log("login", email)
+				const call = {
+					method: "POST",
+					Headers: {"Content-Type": "application/json",},
+					body: JSON.stringify({
+						"email": email,
+						"password": password
+					}),
+				}
+				const resp = await fetch("https://sturdy-giggle-q7qp9w9wp4x9fq6p-3001.app.github.dev/api/login", call);
+				if (!resp.ok){
+					throw new Error(error)
+				}
+				if(resp.status < 200 || resp.status >= 300){
+					throw new Error("error en el login flux")
+				}
+				const data = await resp.json()
+
+				localStorage.setItem("token", data.token)
+				return data
+
+			},
+
+
+
+			// Use getActions to call a function within a fuction
+			
 
 			getMessage: async () => {
 				try{

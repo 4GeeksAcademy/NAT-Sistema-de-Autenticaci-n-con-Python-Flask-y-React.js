@@ -17,7 +17,7 @@ export const Home = () => {
 				<fieldset><Link to="/login" className="btn btn-login">LOGIN 🦋 </Link></fieldset>
 			</div>
 			<div className=" col row-4 text-center m-5">
-				<fieldset > <Link to="/register" className="btn btn-register">REGISTER 🐝 </Link></fieldset>
+				<fieldset > <Link to="/signup" className="btn btn-register">SignUp 🐝 </Link></fieldset>
 			</div>
 		
 		</div>
