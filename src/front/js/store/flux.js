@@ -11,7 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			createUser: async (name, email, password) => {
 				const call = {
 					method: "POST",
-					Headers: {"Content-Type": "application/json"},
+					headers: {'Content-Type': 'application/json'},
 					body: JSON.stringify({
 						"name": name,
 						"email": email,
@@ -20,13 +20,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 				}
 				try {
-					const result = await fetch("https://sturdy-giggle-q7qp9w9wp4x9fq6p-3001.app.github.dev/api/users", call)
-					console.log("fetch a users",result)
+					const response = await fetch('https://sturdy-giggle-q7qp9w9wp4x9fq6p-3001.app.github.dev/api/user/', call)
+					console.log("fetch a users",response)
+					const data = await response.json();
 
 				if (!response.ok) {
 					throw new Error("Failed to create user");
 				}
-				const data = await response.json();
+				
 				if (!data.message) {
 					throw new Error("User creation failed");
 				}

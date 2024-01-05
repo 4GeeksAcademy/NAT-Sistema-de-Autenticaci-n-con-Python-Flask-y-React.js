@@ -12,14 +12,15 @@ export const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const token = localStorage.getItem("token");
   const navigate = useNavigate()
+  const token = localStorage.getItem("token");
+
 
   useEffect(() => {
       if (store.user != null) {
           navigate("/")
       }
-  })
+  },[])
 
 
 const handleSubmit = async (e) => {

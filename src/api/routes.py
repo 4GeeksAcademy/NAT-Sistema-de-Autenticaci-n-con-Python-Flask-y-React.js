@@ -6,7 +6,8 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import JWTManager, create_access_token 
+from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
+
 
 api = Blueprint('api', __name__)
 
@@ -28,13 +29,28 @@ def manage_users():
     if request.method == 'GET':
         users = User.query.all()
         return jsonify([user.name for user in users])
+    
     elif request.method == 'POST':
         data = request.json
-        user = User(name=data['name'], email=data['email'], 
-                        is_active=data['active'], password=generate_password_hash(data['password']))
-        db.session.add(user)
-        db.session.commit()
-        return jsonify({'message': 'Usuario creado '}), 201
+
+        if 'name' not in dta or 'email' not in data or 'password' not in data:
+            return jsonify({'message': 'faltan datos para crear el usuario'}), 400
+        
+        try:
+
+             user = User(
+                 name=data['name'], 
+                 email=data['email'], 
+                 is_active= True,
+                 password=generate_password_hash(data['password'])
+                 )
+             
+             db.session.add(user)
+             db.session.commit()
+             return jsonify({'message': 'Usuario creado '}), 201
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'message':f'Error creando el user: {str(e)}'}),500
 
 @api.route('/login', methods=['POST', 'GET'])
 def login():
