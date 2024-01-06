@@ -33,21 +33,24 @@ def manage_users():
     elif request.method == 'POST':
         data = request.json
 
-        if 'name' not in dta or 'email' not in data or 'password' not in data:
+        if 'name' not in data or 'email' not in data or 'password' not in data:
             return jsonify({'message': 'faltan datos para crear el usuario'}), 400
         
         try:
-
-             user = User(
+             
+            user = User(
                  name=data['name'], 
                  email=data['email'], 
                  is_active= True,
                  password=generate_password_hash(data['password'])
                  )
              
-             db.session.add(user)
-             db.session.commit()
-             return jsonify({'message': 'Usuario creado '}), 201
+            db.session.add(user)
+            db.session.commit()
+            print(user)
+
+            return jsonify({'message': 'Usuario creado '}), 201
+        
         except Exception as e:
             db.session.rollback()
             return jsonify({'message':f'Error creando el user: {str(e)}'}),500

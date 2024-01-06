@@ -16,11 +16,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"name": name,
 						"email": email,
 						"password": password,
-						"is_active": true 
+						//"is_active": true 
 					})
 				}
 				try {
-					const response = await fetch('https://sturdy-giggle-q7qp9w9wp4x9fq6p-3001.app.github.dev/api/user/', call)
+					const response = await fetch('https://sturdy-giggle-q7qp9w9wp4x9fq6p-3001.app.github.dev/api/users', call)
 					console.log("fetch a users",response)
 					const data = await response.json();
 
@@ -42,7 +42,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("login", email)
 				const call = {
 					method: "POST",
-					Headers: {"Content-Type": "application/json",},
+					headers: {"Content-Type": "application/json",},
 					body: JSON.stringify({
 						"email": email,
 						"password": password

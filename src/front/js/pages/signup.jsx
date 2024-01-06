@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState} from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../store/appContext.js";
 import { useNavigate } from "react-router-dom";
 
 import Swal from 'sweetalert2';
@@ -27,17 +27,22 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-      await actions.createUser(name, email, password)
-      Swal.fire("User created!");
+    const userData = await actions.createUser(name, email, password)
+      if (userData) {
+        Swal.fire("User created!");
 
-      setTimeout(() => {
-          navigate("/")
-      }, 2000);
+        setTimeout(() => {
+            navigate("/")
+        }, 2000);
+  
+        setTimeout(() => {
+            window.location.reload(false)
+        }, 2001);
 
-      setTimeout(() => {
-          window.location.reload(false)
-      }, 2001);
-
+      }else{
+        throw new Error("no se puede crear el user")
+      }
+     
   } catch (error) {
       console.log("error al crear el user", error);
       Swal.fire({
