@@ -19,11 +19,11 @@ export const Login = () => {
             const token = response.token; 
 
             setTimeout(() => {
-                navigate("/");
+                navigate("/private");
             }, 1500);
 
             setTimeout(() => {
-                window.location.reload(false);
+                window.location.reload(true);
             }, 1500);
 
         } catch (error) {

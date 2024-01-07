@@ -1,14 +1,15 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import {  Route, Navigate } from 'react-router-dom';
+import { Private } from '../pages/private.jsx';
 
-export const PrivateRoute = ({ path, element }) => {
+export const PrivateRoute = ({ redirectPath = '/', children }) => {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        return <Navigate to="/login" />;
+        return <Navigate to={redirectPath} replace />
     }
 
-    return <Route path={path} element={element} />;
-};
+    return children
+}
     
 
