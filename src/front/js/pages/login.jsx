@@ -1,11 +1,11 @@
-import React, {useEffect, useContext, useState} from "react";
+import React, { useContext, useState} from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
 import Swal from 'sweetalert2';
 
 export const Login = () => {
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -18,13 +18,15 @@ export const Login = () => {
            
             const token = response.token; 
 
+            localStorage.setItem("token", token);
+
             setTimeout(() => {
                 navigate("/private");
-            }, 1500);
+            }, 500);
 
             setTimeout(() => {
                 window.location.reload(true);
-            }, 1500);
+            }, 500);
 
         } catch (error) {
             Swal.fire({
@@ -37,9 +39,9 @@ export const Login = () => {
             setEmail("");
             setPassword("");
         }
-    };
-
-
+        
+      };
+      
 
     return (
         <div className="m-3 p-4">
@@ -74,6 +76,7 @@ export const Login = () => {
           <button className="btn btn-primary" type="submit">Enter</button>
         </div>
       </form>
+      
     </div>
     )
 }

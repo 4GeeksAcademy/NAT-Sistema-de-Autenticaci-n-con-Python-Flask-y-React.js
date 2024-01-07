@@ -33,11 +33,11 @@ const handleSubmit = async (e) => {
 
         setTimeout(() => {
             navigate("/")
-        }, 2000);
+        }, 1000);
   
         setTimeout(() => {
             window.location.reload(false)
-        }, 2001);
+        }, 1001);
 
       }else{
         throw new Error("no se puede crear el user")
