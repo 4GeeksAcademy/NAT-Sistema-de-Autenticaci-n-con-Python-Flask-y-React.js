@@ -12,7 +12,7 @@ export const Navbar = () => {
 		localStorage.removeItem('token');
 
 		Swal.fire({
-			title: "See you soon! 👽",
+			title: "See you soon 👽",
 		});
 
 		setTimeout(() => {
